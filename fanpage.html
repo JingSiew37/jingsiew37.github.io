@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jay Chou · Liner Notes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EDE6D6;
+    --paper-2:#E2D9C4;
+    --ink:#17130F;
+    --ink-soft:#4A423A;
+    --gold:#B98A3C;
+    --gold-soft:#D9B87A;
+    --jade:#3E5C4E;
+    --seal:#A3312B;
+    --line: rgba(23,19,15,0.18);
+    --shadow: rgba(23,19,15,0.25);
+
+    --stage-bg:#0C0D11;
+    --stage-bg-2:#141620;
+    --stage-ink:#ECE7DA;
+    --stage-ink-soft:#B9B3A3;
+    --stage-gold:#F2C955;
+    --stage-jade:#6FAE93;
+    --stage-seal:#E1584D;
+    --stage-line: rgba(236,231,218,0.14);
+    --stage-shadow: rgba(0,0,0,0.55);
+
+    --bg: var(--paper);
+    --bg2: var(--paper-2);
+    --fg: var(--ink);
+    --fg-soft: var(--ink-soft);
+    --accent: var(--gold);
+    --accent-soft: var(--gold-soft);
+    --jade-c: var(--jade);
+    --seal-c: var(--seal);
+    --line-c: var(--line);
+    --shadow-c: var(--shadow);
+
+    --display: 'Noto Serif TC', serif;
+    --body: 'Inter', system-ui, sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+  }
+
+  [data-theme="night"]{
+    --bg: var(--stage-bg);
+    --bg2: var(--stage-bg-2);
+    --fg: var(--stage-ink);
+    --fg-soft: var(--stage-ink-soft);
+    --accent: var(--stage-gold);
+    --accent-soft: var(--stage-gold);
+    --jade-c: var(--stage-jade);
+    --seal-c: var(--stage-seal);
+    --line-c: var(--stage-line);
+    --shadow-c: var(--stage-shadow);
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--body);
+    transition: background .5s ease, color .5s ease;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  :focus-visible{
+    outline: 2px solid var(--seal-c);
+    outline-offset: 3px;
+  }
+
+  a{ color: inherit; }
+
+  .wrap{
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* ---------- Top bar ---------- */
+  .topbar{
+    position: sticky; top:0; z-index: 20;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--line-c);
+  }
+  .topbar-inner{
+    max-width: 980px; margin: 0 auto; padding: 14px 28px;
+    display:flex; align-items:center; justify-content: space-between;
+  }
+  .brand{
+    font-family: var(--display); font-weight: 700; font-size: 1rem;
+    letter-spacing: .04em;
+  }
+  .brand span{ color: var(--seal-c); }
+
+  .theme-toggle{
+    display:flex; align-items:center; gap:10px;
+    background: transparent;
+    border: 1px solid var(--line-c);
+    border-radius: 999px;
+    padding: 6px 6px 6px 14px;
+    cursor:pointer;
+    font-family: var(--mono);
+    font-size: .72rem;
+    letter-spacing: .08em;
+    color: var(--fg-soft);
+    text-transform: uppercase;
+    transition: border-color .3s ease;
+  }
+  .theme-toggle:hover{ border-color: var(--accent); }
+  .toggle-dot{
+    width: 26px; height: 26px; border-radius: 50%;
+    background: var(--accent);
+    display:flex; align-items:center; justify-content:center;
+    font-size: .8rem;
+    transition: transform .4s cubic-bezier(.2,.9,.3,1.2);
+  }
+  [data-theme="night"] .toggle-dot{ transform: rotate(180deg); }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding: 64px 0 40px;
+    display:grid;
+    grid-template-columns: 260px 1fr;
+    gap: 48px;
+    align-items:center;
+  }
+
+  @keyframes spin{ to{ transform: rotate(360deg); } }
+
+  .hero-photo{
+    width: 260px; height: 260px;
+    border-radius: 18px;
+    overflow: hidden;
+    background: var(--bg2);
+    border: 1px solid var(--line-c);
+    box-shadow: 0 18px 40px var(--shadow-c);
+    flex-shrink: 0;
+  }
+  .hero-photo img{
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .hero-copy .eyebrow{
+    font-family: var(--mono);
+    text-transform: uppercase;
+    letter-spacing: .16em;
+    font-size: .74rem;
+    color: var(--jade-c);
+    margin: 0 0 14px;
+  }
+  .hero-copy h1{
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: clamp(2.6rem, 6vw, 4.4rem);
+    line-height: .95;
+    margin: 0 0 6px;
+    letter-spacing: -.01em;
+  }
+  .hero-copy .zh{
+    font-family: var(--display);
+    font-size: 1.4rem;
+    color: var(--fg-soft);
+    margin: 0 0 18px;
+    font-weight: 500;
+  }
+  .hero-copy p{
+    max-width: 46ch;
+    color: var(--fg-soft);
+    line-height: 1.6;
+    font-size: 1.02rem;
+    margin: 0 0 20px;
+  }
+  .meta-row{
+    display:flex; flex-wrap: wrap; gap: 10px 22px;
+    font-family: var(--mono);
+    font-size: .78rem;
+    color: var(--fg-soft);
+  }
+  .meta-row b{ color: var(--fg); font-weight: 500; }
+
+  /* ---------- Section framing ---------- */
+  section{ padding: 54px 0; border-top: 1px solid var(--line-c); }
+  .section-head{
+    display:flex; align-items:baseline; justify-content: space-between;
+    margin-bottom: 30px; gap: 16px; flex-wrap: wrap;
+  }
+  .section-head h2{
+    font-family: var(--display);
+    font-size: 1.7rem;
+    margin: 0;
+  }
+  .section-head .tag{
+    font-family: var(--mono); font-size: .72rem;
+    letter-spacing: .1em; text-transform: uppercase;
+    color: var(--seal-c);
+  }
+
+  /* ---------- Bio (liner notes) ---------- */
+  .bio{
+    columns: 2;
+    column-gap: 40px;
+    color: var(--fg-soft);
+    line-height: 1.75;
+    font-size: 1rem;
+  }
+  .bio p{ margin: 0 0 1em; break-inside: avoid; }
+  .bio p:first-of-type::first-letter{
+    font-family: var(--display);
+    font-size: 3.4rem;
+    font-weight: 900;
+    float: left;
+    line-height: .8;
+    padding: 6px 8px 0 0;
+    color: var(--seal-c);
+  }
+  @media (max-width: 700px){ .bio{ columns: 1; } }
+
+  /* ---------- Facts as tracklist ---------- */
+  .tracklist{ list-style:none; margin:0; padding:0; }
+  .track{
+    display:grid;
+    grid-template-columns: 40px 1fr auto;
+    gap: 16px;
+    align-items: start;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--line-c);
+  }
+  .track:last-child{ border-bottom:none; }
+  .track-no{
+    font-family: var(--mono);
+    color: var(--seal-c);
+    font-size: .85rem;
+    padding-top: 2px;
+  }
+  .track-body h3{
+    margin: 0 0 4px;
+    font-family: var(--display);
+    font-size: 1.05rem;
+    font-weight: 700;
+  }
+  .track-body p{
+    margin: 0; color: var(--fg-soft);
+    font-size: .92rem; line-height: 1.55;
+  }
+  .track-tag{
+    font-family: var(--mono);
+    font-size: .7rem;
+    color: var(--fg-soft);
+    white-space: nowrap;
+    padding-top: 3px;
+  }
+
+  /* ---------- Interactive: fact generator ---------- */
+  .studio{
+    background: var(--bg2);
+    border: 1px solid var(--line-c);
+    border-radius: 18px;
+    padding: 34px;
+    display:grid;
+    grid-template-columns: auto 1fr;
+    gap: 28px;
+    align-items:center;
+  }
+  @media (max-width: 620px){ .studio{ grid-template-columns: 1fr; text-align:center; } }
+
+  .turntable{
+    display:flex;
+    align-items:center;
+    gap: 18px;
+    flex-shrink: 0;
+    margin: 0 auto;
+  }
+  @media (max-width: 620px){ .turntable{ flex-direction: column; } }
+
+  .record-mini{
+    position: relative;
+    width: 96px; height: 96px;
+    border-radius: 50%;
+    background:
+      repeating-radial-gradient(circle at center,
+        #101010 0px, #101010 2px,
+        #1c1c1c 2px, #1c1c1c 4px);
+    box-shadow: 0 10px 22px var(--shadow-c);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink: 0;
+  }
+  .record-mini.spinning{ animation: spin 1.1s linear infinite; }
+  .record-mini::after{
+    content:"";
+    width: 30px; height: 30px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, var(--accent-soft), var(--seal-c));
+    box-shadow: inset 0 0 0 3px rgba(0,0,0,.25);
+  }
+
+  .tonearm{
+    font-size: 1.6rem;
+    color: var(--fg-soft);
+    transform: rotate(0deg);
+    transition: transform .3s ease;
+    flex-shrink: 0;
+  }
+  .record-mini.spinning ~ .tonearm{ transform: rotate(18deg); }
+
+  .spin-btn{
+    width: 132px; height:132px; border-radius: 50%;
+    border: 2px solid var(--accent);
+    background: transparent;
+    color: var(--fg);
+    font-family: var(--mono);
+    font-size: .78rem;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    transition: background .25s ease, color .25s ease, transform .2s ease;
+    flex-shrink: 0;
+  }
+  .spin-btn:hover{ background: var(--accent); color: var(--bg); }
+  .spin-btn:active{ transform: scale(.96); }
+  .spin-btn[disabled]{ opacity:.6; cursor: default; }
+
+  .needle-line{
+    font-family: var(--mono);
+    font-size: .7rem;
+    text-transform: uppercase;
+    letter-spacing: .14em;
+    color: var(--jade-c);
+    margin: 0 0 10px;
+  }
+  .fact-display{
+    font-family: var(--display);
+    font-size: 1.25rem;
+    line-height: 1.5;
+    min-height: 3.4em;
+    margin: 0;
+  }
+  .fact-display .cursor{
+    display:inline-block;
+    width: 2px; height: 1em;
+    background: var(--seal-c);
+    margin-left: 3px;
+    vertical-align: -2px;
+    animation: blink 1s step-end infinite;
+  }
+  @keyframes blink{ 50%{ opacity: 0; } }
+
+  /* ---------- Footer ---------- */
+  footer{
+    padding: 40px 0 70px;
+    color: var(--fg-soft);
+    font-family: var(--mono);
+    font-size: .72rem;
+    letter-spacing: .04em;
+    text-align:center;
+    border-top: 1px solid var(--line-c);
+  }
+
+  @media (max-width: 700px){
+    .hero{ grid-template-columns: 1fr; text-align:center; }
+    .hero-copy p{ margin-left:auto; margin-right:auto; }
+    .meta-row{ justify-content:center; }
+    .hero-photo{ margin: 0 auto; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    .record-mini.spinning{ animation: none; }
+    .toggle-dot{ transition:none; }
+    .fact-display .cursor{ animation:none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">JAY CHOU <span>/ 周杰倫</span></div>
+    <button class="theme-toggle" id="themeToggle" aria-pressed="false">
+      <span id="themeLabel">Day side</span>
+      <span class="toggle-dot" aria-hidden="true">☀</span>
+    </button>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <section class="hero" style="border-top:none;">
+    <div class="hero-photo">
+      <img src="/jaychou.jpg" alt="Jay Chou">
+    </div>
+    <div class="hero-copy">
+      <p class="eyebrow">Singer · Songwriter · Producer · Director</p>
+      <h1>Jay Chou</h1>
+      <p class="zh">周杰倫</p>
+      <p>Since debuting in 2000, Jay Chou has shaped the sound of modern Mandopop by fusing classical piano training, R&amp;B and hip-hop rhythm, and traditional Chinese instrumentation into a style fans and critics alike call "Zhongguo Feng," or Chinese wind.</p>
+      <div class="meta-row">
+        <span><b>Born</b> Jan 18, 1979 · New Taipei City, Taiwan</span>
+        <span><b>Active</b> 2000 – present</span>
+        <span><b>Roles</b> Music, film, direction</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="facts">
+    <div class="section-head">
+      <h2>Track Listing — Facts Worth Knowing</h2>
+      <span class="tag">Trivia</span>
+    </div>
+    <ol class="tracklist">
+      <li class="track">
+        <span class="track-no">01</span>
+        <span class="track-body">
+          <h3>Piano before pop</h3>
+          <p>He began classical piano training at age four and has said the discipline shaped how he later composes, often at the keyboard first.</p>
+        </span>
+        <span class="track-tag">since 1983</span>
+      </li>
+      <li class="track">
+        <span class="track-no">02</span>
+        <span class="track-body">
+          <h3>Ghostwriter first, star second</h3>
+          <p>Before his own debut, he wrote and pitched songs to other singers — several of which were turned down before he decided to record them himself.</p>
+        </span>
+        <span class="track-tag">pre-2000</span>
+      </li>
+      <li class="track">
+        <span class="track-no">03</span>
+        <span class="track-body">
+          <h3>The "Chinese wind" sound</h3>
+          <p>He's widely credited with popularizing a style that layers traditional Chinese instruments and pentatonic melody over R&amp;B and hip-hop production.</p>
+        </span>
+        <span class="track-tag">signature style</span>
+      </li>
+      <li class="track">
+        <span class="track-no">04</span>
+        <span class="track-body">
+          <h3>Also a filmmaker</h3>
+          <p>He wrote and directed the mystery drama <em>Secret</em> in 2007, and has appeared in films including <em>Kung Fu Hustle</em> and <em>The Green Hornet</em>.</p>
+        </span>
+        <span class="track-tag">2007 –</span>
+      </li>
+      <li class="track">
+        <span class="track-no">05</span>
+        <span class="track-body">
+          <h3>A famously private life</h3>
+          <p>Despite decades of fame, he's kept much of his personal life out of the press, only occasionally confirming major milestones like his marriage.</p>
+        </span>
+        <span class="track-tag">off the record</span>
+      </li>
+    </ol>
+  </section>
+
+  <section id="studio">
+    <div class="section-head">
+      <h2>Spin the Record</h2>
+      <span class="tag">Interactive</span>
+    </div>
+    <div class="studio">
+      <div class="turntable">
+        <div class="record-mini" id="recordMini" aria-hidden="true"></div>
+        <button class="spin-btn" id="spinBtn">▶ Spin</button>
+      </div>
+      <div>
+        <p class="needle-line">Now surfacing</p>
+        <p class="fact-display" id="factDisplay">Press spin to pull a fact from the crate<span class="cursor"></span></p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  FAN-MADE TRIBUTE PAGE · NOT AN OFFICIAL SITE · BUILT WITH HTML, CSS &amp; JS ONLY
+</footer>
+
+<script>
+  // ---- Theme switcher (Day / Night) ----
+  const root = document.body;
+  const toggleBtn = document.getElementById('themeToggle');
+  const themeLabel = document.getElementById('themeLabel');
+  const toggleDot = toggleBtn.querySelector('.toggle-dot');
+
+  function setTheme(theme){
+    if(theme === 'night'){
+      root.setAttribute('data-theme', 'night');
+      themeLabel.textContent = 'Night side';
+      toggleDot.textContent = '★';
+      toggleBtn.setAttribute('aria-pressed', 'true');
+    } else {
+      root.removeAttribute('data-theme');
+      themeLabel.textContent = 'Day side';
+      toggleDot.textContent = '☀';
+      toggleBtn.setAttribute('aria-pressed', 'false');
+    }
+  }
+
+  toggleBtn.addEventListener('click', () => {
+    const isNight = root.getAttribute('data-theme') === 'night';
+    setTheme(isNight ? 'day' : 'night');
+  });
+
+  // ---- Fact generator (spin the record) ----
+  const facts = [
+    "He can reportedly play piano, guitar, and drums — most of it self-taught beyond his early piano lessons.",
+    "Many of his song titles and lyrics draw on classical Chinese poetry and martial-arts fiction.",
+    "His albums are known for long, elaborate instrumental intros — unusual for mainstream pop singles.",
+    "He directed and starred in the 2007 film Secret, which he also scored.",
+    "He's released albums almost every year since 2000, an unusually consistent pace for a global pop star.",
+    "His concerts are known for elaborate stage design, including moments where he performs while suspended or on rotating rigs.",
+    "He was famously soft-spoken and shy in early interviews, a contrast to his high-energy stage persona.",
+    "He has composed music for other artists throughout his career, not just for himself.",
+    "Fans and critics often point to his blending of R&B swing with traditional Chinese melody as genre-defining.",
+    "He's as well known in some circles for his film and directing work as for his music."
+  ];
+
+  const spinBtn = document.getElementById('spinBtn');
+  const recordMini = document.getElementById('recordMini');
+  const factDisplay = document.getElementById('factDisplay');
+  let lastIndex = -1;
+  let spinning = false;
+
+  function pickFact(){
+    let i = Math.floor(Math.random() * facts.length);
+    if(facts.length > 1){
+      while(i === lastIndex){ i = Math.floor(Math.random() * facts.length); }
+    }
+    lastIndex = i;
+    return facts[i];
+  }
+
+  function typeOut(text){
+    factDisplay.innerHTML = '';
+    let i = 0;
+    const cursor = document.createElement('span');
+    cursor.className = 'cursor';
+    const textNode = document.createTextNode('');
+    factDisplay.appendChild(textNode);
+    factDisplay.appendChild(cursor);
+    const interval = setInterval(() => {
+      textNode.textContent = text.slice(0, i + 1);
+      i++;
+      if(i >= text.length){ clearInterval(interval); }
+    }, 16);
+  }
+
+  function doSpin(){
+    if(spinning) return;
+    spinning = true;
+    spinBtn.disabled = true;
+    recordMini.classList.add('spinning');
+    spinBtn.textContent = '…';
+    setTimeout(() => {
+      recordMini.classList.remove('spinning');
+      spinBtn.disabled = false;
+      spinBtn.textContent = '▶ Spin';
+      spinning = false;
+      typeOut(pickFact());
+    }, 900);
+  }
+
+  spinBtn.addEventListener('click', doSpin);
+</script>
+
+</body>
+</html>
