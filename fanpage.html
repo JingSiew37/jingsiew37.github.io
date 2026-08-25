@@ -259,99 +259,132 @@
     padding-top: 3px;
   }
 
-  /* ---------- Interactive: fact generator ---------- */
-  .studio{
+  /* ---------- Interactive: duet partners ---------- */
+  .duet-panel{
+    position: relative;
     background: var(--bg2);
     border: 1px solid var(--line-c);
-    border-radius: 18px;
-    padding: 34px;
-    display:grid;
-    grid-template-columns: auto 1fr;
-    gap: 28px;
-    align-items:center;
+    border-radius: 20px;
+    padding: 40px 44px;
+    overflow: hidden;
   }
-  @media (max-width: 620px){ .studio{ grid-template-columns: 1fr; text-align:center; } }
+  .duet-panel::before{
+    content:"";
+    position:absolute;
+    left:0; top:0; bottom:0;
+    width: 5px;
+    background: linear-gradient(var(--seal-c), var(--jade-c));
+  }
 
-  .turntable{
+  .duet-top{
     display:flex;
     align-items:center;
-    gap: 18px;
-    flex-shrink: 0;
-    margin: 0 auto;
+    gap: 26px;
   }
-  @media (max-width: 620px){ .turntable{ flex-direction: column; } }
+  @media (max-width: 560px){ .duet-top{ flex-direction: column; text-align:center; } }
 
-  .record-mini{
-    position: relative;
-    width: 96px; height: 96px;
+  .duet-avatar{
+    width: 84px; height: 84px;
     border-radius: 50%;
-    background:
-      repeating-radial-gradient(circle at center,
-        #101010 0px, #101010 2px,
-        #1c1c1c 2px, #1c1c1c 4px);
-    box-shadow: 0 10px 22px var(--shadow-c);
-    display:flex; align-items:center; justify-content:center;
     flex-shrink: 0;
-  }
-  .record-mini.spinning{ animation: spin 1.1s linear infinite; }
-  .record-mini::after{
-    content:"";
-    width: 30px; height: 30px; border-radius: 50%;
+    display:flex; align-items:center; justify-content:center;
     background: radial-gradient(circle at 35% 30%, var(--accent-soft), var(--seal-c));
-    box-shadow: inset 0 0 0 3px rgba(0,0,0,.25);
+    color: var(--paper);
+    font-family: var(--display); font-weight: 900; font-size: 1.5rem;
+    box-shadow: inset 0 0 0 4px rgba(0,0,0,.2), 0 10px 22px var(--shadow-c);
+    transition: opacity .25s ease, transform .25s ease;
   }
 
-  .tonearm{
-    font-size: 1.6rem;
-    color: var(--fg-soft);
-    transform: rotate(0deg);
-    transition: transform .3s ease;
-    flex-shrink: 0;
-  }
-  .record-mini.spinning ~ .tonearm{ transform: rotate(18deg); }
-
-  .spin-btn{
-    width: 132px; height:132px; border-radius: 50%;
-    border: 2px solid var(--accent);
-    background: transparent;
-    color: var(--fg);
-    font-family: var(--mono);
-    font-size: .78rem;
-    letter-spacing: .06em;
-    text-transform: uppercase;
-    cursor:pointer;
-    display:flex; align-items:center; justify-content:center;
-    transition: background .25s ease, color .25s ease, transform .2s ease;
-    flex-shrink: 0;
-  }
-  .spin-btn:hover{ background: var(--accent); color: var(--bg); }
-  .spin-btn:active{ transform: scale(.96); }
-  .spin-btn[disabled]{ opacity:.6; cursor: default; }
-
-  .needle-line{
+  .duet-info{ flex: 1; min-width: 0; }
+  .duet-label{
     font-family: var(--mono);
     font-size: .7rem;
     text-transform: uppercase;
-    letter-spacing: .14em;
+    letter-spacing: .16em;
     color: var(--jade-c);
-    margin: 0 0 10px;
+    margin: 0 0 8px;
+    display:flex; align-items:center; gap: 10px; flex-wrap: wrap;
   }
-  .fact-display{
+  .duet-count{ color: var(--fg-soft); letter-spacing: .04em; }
+
+  .duet-body{
+    transition: opacity .25s ease, transform .25s ease;
+  }
+  .duet-body.fading{
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  .duet-song{
     font-family: var(--display);
-    font-size: 1.25rem;
-    line-height: 1.5;
-    min-height: 3.4em;
-    margin: 0;
+    font-size: 1.55rem;
+    font-weight: 700;
+    margin: 0 0 6px;
+    line-height: 1.25;
   }
-  .fact-display .cursor{
+  .duet-with{
+    font-size: 1rem;
+    color: var(--fg-soft);
+    margin: 0 0 12px;
+  }
+  .duet-with b{ color: var(--fg); font-weight: 600; }
+  .duet-year{
     display:inline-block;
-    width: 2px; height: 1em;
-    background: var(--seal-c);
-    margin-left: 3px;
-    vertical-align: -2px;
-    animation: blink 1s step-end infinite;
+    font-family: var(--mono);
+    font-size: .7rem;
+    letter-spacing: .06em;
+    color: var(--fg);
+    background: var(--bg);
+    border: 1px solid var(--line-c);
+    border-radius: 999px;
+    padding: 4px 12px;
   }
-  @keyframes blink{ 50%{ opacity: 0; } }
+
+  .duet-controls{
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 30px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line-c);
+  }
+  @media (max-width: 560px){ .duet-controls{ flex-direction: column; } }
+
+  .duet-dots{
+    display:flex; gap: 8px;
+  }
+  .duet-dot{
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--line-c);
+    transition: background .25s ease, transform .25s ease;
+  }
+  .duet-dot.active{
+    background: var(--seal-c);
+    transform: scale(1.3);
+  }
+
+  .duet-btn{
+    display:inline-flex; align-items:center; gap: 10px;
+    border: 1px solid var(--accent);
+    background: transparent;
+    color: var(--fg);
+    font-family: var(--mono);
+    font-size: .76rem;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    padding: 12px 22px;
+    border-radius: 999px;
+    cursor:pointer;
+    transition: background .25s ease, color .25s ease, transform .15s ease;
+  }
+  .duet-btn:hover{ background: var(--accent); color: var(--bg); }
+  .duet-btn:active{ transform: scale(.97); }
+  .duet-btn .arrow{ transition: transform .25s ease; }
+  .duet-btn:hover .arrow{ transform: translateX(3px); }
+
+  @media (prefers-reduced-motion: reduce){
+    .duet-body, .duet-avatar{ transition: none; }
+  }
 
   /* ---------- Footer ---------- */
   footer{
@@ -373,9 +406,7 @@
 
   @media (prefers-reduced-motion: reduce){
     html{ scroll-behavior:auto; }
-    .record-mini.spinning{ animation: none; }
     .toggle-dot{ transition:none; }
-    .fact-display .cursor{ animation:none; }
   }
 </style>
 </head>
@@ -459,28 +490,32 @@
     </ol>
   </section>
 
-  <section id="studio">
+  <section id="duets">
     <div class="section-head">
-      <h2>Spin the Record</h2>
-      <span class="tag">Interactive</span>
+      <h2>Duet Partners</h2>
+      <span class="tag">Collaborations</span>
     </div>
-    <div class="studio">
-      <div class="turntable">
-        <div class="record-mini" id="recordMini" aria-hidden="true"></div>
-        <button class="spin-btn" id="spinBtn">▶ Spin</button>
+    <div class="duet-panel">
+      <div class="duet-top">
+        <div class="duet-avatar" id="duetAvatar">JC</div>
+        <div class="duet-info">
+          <p class="duet-label">Now featuring <span class="duet-count" id="duetCount">1 / 5</span></p>
+          <div class="duet-body" id="duetBody">
+            <h3 class="duet-song" id="duetSong"></h3>
+            <p class="duet-with" id="duetWith"></p>
+            <span class="duet-year" id="duetYear"></span>
+          </div>
+        </div>
       </div>
-      <div>
-        <p class="needle-line">Now surfacing</p>
-        <p class="fact-display" id="factDisplay">Press spin to pull a fact from the crate<span class="cursor"></span></p>
+      <div class="duet-controls">
+        <div class="duet-dots" id="duetDots"></div>
+        <button class="duet-btn" id="duetBtn">Shuffle collaboration <span class="arrow">→</span></button>
       </div>
     </div>
   </section>
 
 </div>
 
-<footer>
-  FAN-MADE TRIBUTE PAGE · NOT AN OFFICIAL SITE · BUILT WITH HTML, CSS &amp; JS ONLY
-</footer>
 
 <script>
   // ---- Theme switcher (Day / Night) ----
@@ -508,66 +543,63 @@
     setTheme(isNight ? 'day' : 'night');
   });
 
-  // ---- Fact generator (spin the record) ----
-  const facts = [
-    "He can reportedly play piano, guitar, and drums — most of it self-taught beyond his early piano lessons.",
-    "Many of his song titles and lyrics draw on classical Chinese poetry and martial-arts fiction.",
-    "His albums are known for long, elaborate instrumental intros — unusual for mainstream pop singles.",
-    "He directed and starred in the 2007 film Secret, which he also scored.",
-    "He's released albums almost every year since 2000, an unusually consistent pace for a global pop star.",
-    "His concerts are known for elaborate stage design, including moments where he performs while suspended or on rotating rigs.",
-    "He was famously soft-spoken and shy in early interviews, a contrast to his high-energy stage persona.",
-    "He has composed music for other artists throughout his career, not just for himself.",
-    "Fans and critics often point to his blending of R&B swing with traditional Chinese melody as genre-defining.",
-    "He's as well known in some circles for his film and directing work as for his music."
+  // ---- Duet partner cycler ----
+  const duets = [
+    { song: "Won't Cry (說好不哭)", with: "Ashin, lead vocalist of Mayday", year: "2019", initials: "JA" },
+    { song: "Shouldn't Be (不該)", with: "A-Mei", year: "2016", initials: "JM" },
+    { song: "Coral Sea (珊瑚海)", with: "Lara Liang, on backing vocals", year: "2005", initials: "JL" },
+    { song: "Christmas Star", with: "Gary Yang", year: "2011", initials: "JG" },
+    { song: "Simple Love (簡單愛)", with: "Vivian Hsu, as lyricist", year: "2001", initials: "JV" }
   ];
 
-  const spinBtn = document.getElementById('spinBtn');
-  const recordMini = document.getElementById('recordMini');
-  const factDisplay = document.getElementById('factDisplay');
-  let lastIndex = -1;
-  let spinning = false;
+  const duetAvatar = document.getElementById('duetAvatar');
+  const duetBody = document.getElementById('duetBody');
+  const duetSong = document.getElementById('duetSong');
+  const duetWith = document.getElementById('duetWith');
+  const duetYear = document.getElementById('duetYear');
+  const duetCount = document.getElementById('duetCount');
+  const duetDots = document.getElementById('duetDots');
+  const duetBtn = document.getElementById('duetBtn');
 
-  function pickFact(){
-    let i = Math.floor(Math.random() * facts.length);
-    if(facts.length > 1){
-      while(i === lastIndex){ i = Math.floor(Math.random() * facts.length); }
-    }
-    lastIndex = i;
-    return facts[i];
+  let duetIndex = 0;
+
+  duets.forEach((_, i) => {
+    const dot = document.createElement('span');
+    dot.className = 'duet-dot' + (i === 0 ? ' active' : '');
+    duetDots.appendChild(dot);
+  });
+
+  function renderDuet(i){
+    const d = duets[i];
+    duetAvatar.textContent = d.initials;
+    duetSong.textContent = d.song;
+    duetWith.innerHTML = 'with <b>' + d.with + '</b>';
+    duetYear.textContent = d.year;
+    duetCount.textContent = (i + 1) + ' / ' + duets.length;
+    [...duetDots.children].forEach((dot, di) => {
+      dot.classList.toggle('active', di === i);
+    });
   }
 
-  function typeOut(text){
-    factDisplay.innerHTML = '';
-    let i = 0;
-    const cursor = document.createElement('span');
-    cursor.className = 'cursor';
-    const textNode = document.createTextNode('');
-    factDisplay.appendChild(textNode);
-    factDisplay.appendChild(cursor);
-    const interval = setInterval(() => {
-      textNode.textContent = text.slice(0, i + 1);
-      i++;
-      if(i >= text.length){ clearInterval(interval); }
-    }, 16);
+  function pickRandomDuet(){
+    if(duets.length <= 1) return 0;
+    let i;
+    do{ i = Math.floor(Math.random() * duets.length); } while(i === duetIndex);
+    return i;
   }
 
-  function doSpin(){
-    if(spinning) return;
-    spinning = true;
-    spinBtn.disabled = true;
-    recordMini.classList.add('spinning');
-    spinBtn.textContent = '…';
+  renderDuet(duetIndex);
+
+  duetBtn.addEventListener('click', () => {
+    duetBody.classList.add('fading');
+    duetAvatar.style.opacity = '0';
     setTimeout(() => {
-      recordMini.classList.remove('spinning');
-      spinBtn.disabled = false;
-      spinBtn.textContent = '▶ Spin';
-      spinning = false;
-      typeOut(pickFact());
-    }, 900);
-  }
-
-  spinBtn.addEventListener('click', doSpin);
+      duetIndex = pickRandomDuet();
+      renderDuet(duetIndex);
+      duetBody.classList.remove('fading');
+      duetAvatar.style.opacity = '1';
+    }, 220);
+  });
 </script>
 
 </body>
