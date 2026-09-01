@@ -16,8 +16,45 @@ body{
 .site-header h1{
     display: block;
     font-weight: 650;
+    font-size: 3rem;
     border: 2px dashed black;
     width: fit-content;
     margin: 0 auto;
     padding: 4px;
 }
+.site-header, .tagline{
+    text-align: center;
+    font-style: italic;
+    font-size: 1.1rem;
+}
+/*photo*/
+.profile{
+    width: 300px;
+    margin: auto;
+    background: grey;
+    border: 2px solid black;
+    padding: 4px;
+    border-radius: 15px;
+}
+.profile-photo{
+    display: block;
+    width: 100%;
+    border-radius: 15px;
+    object-fit: cover;
+    height: auto;
+}
+/*vid*/
+.travel h2{
+    font-size:2rem;
+    margin: 20px 0;
+}
+.travel .sh{
+    color: darkred;
+}
+.travel .travel-video{
+    margin:4px 0;
+    border: 3px solid red;
+    padding: 2px;
+    background-color: darkgoldenrod;
+}
+
